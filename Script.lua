@@ -15,21 +15,18 @@ local Window = Rayfield:CreateWindow({
    KeySystem = false,
 })
 
--- Services
 local P = game:GetService("Players")
 local LP = P.LocalPlayer
 local Camera = workspace.CurrentCamera
 local Mouse = LP:GetMouse()
 local RunService = game:GetService("RunService")
 
--- Global Variables
 getgenv().Toggle = false
 getgenv().TC = false
 local PlayerName = "Name"
 local DB = false
 local ESPLoop
 
--- Settings
 local ESPSettings = {
     ShowDistance = true,
     ShowHealth = true,
@@ -66,11 +63,9 @@ local TeamCheck = {
     Red = Color3.fromRGB(255, 0, 0)
 }
 
--- Connections
 local SkeletonConnections = {}
 local BoxConnections = {}
 
--- Helper Functions
 local function getHeldItemName(character)
     if not character then return "None" end
     local humanoid = character:FindFirstChildOfClass("Humanoid")
@@ -115,13 +110,11 @@ local function getHealthColor(character)
     end
 end
 
--- Tabs
 local ESPTab = Window:CreateTab("ESP", 4483362458)
 local SkeletonTab = Window:CreateTab("Skeleton ESP", 4483362458)
 local BoxTab = Window:CreateTab("Box ESP", 4483362458)
 local InfoTab = Window:CreateTab("Info", 4483362458)
 
--- ESP Tab Controls
 local ESPToggle = ESPTab:CreateToggle({
    Name = "Enable ESP",
    CurrentValue = false,
@@ -243,7 +236,7 @@ local ESPToggle = ESPTab:CreateToggle({
             end
          end)
       else
-         -- Clean up ESP
+
          for i,v in pairs(P:GetChildren()) do
             if v:IsA("Player") and v.Character then
                if v.Character:FindFirstChild("Totally NOT Esp") then
@@ -362,7 +355,7 @@ local OutlineTransparencySlider = ESPTab:CreateSlider({
    end,
 })
 
--- Skeleton ESP Functions
+
 local function DrawLine()
     local l = Drawing.new("Line")
     l.Visible = false
@@ -559,7 +552,7 @@ local function DrawSkeletonESP(plr)
     SkeletonConnections[plr] = {connection = connection, limbs = limbs, texts = texts, colorize = Colorize}
 end
 
--- Skeleton ESP Tab
+
 local SkeletonToggle = SkeletonTab:CreateToggle({
    Name = "Enable Skeleton ESP",
    CurrentValue = false,
@@ -638,7 +631,7 @@ local SkeletonTeamCheck = SkeletonTab:CreateToggle({
    end,
 })
 
--- Box ESP Functions
+
 local function NewQuad(thickness, color)
     local quad = Drawing.new("Quad")
     quad.Visible = false
@@ -899,7 +892,6 @@ local BoxShowItem = BoxTab:CreateToggle({
    Flag = "BoxShowItem",
    Callback = function(Value)
       BoxSettings.ShowItem = Value
-      -- Restart box ESP to apply changes
       if BoxSettings.Enabled then
          for plr, data in pairs(BoxConnections) do
             if data.connection then data.connection:Disconnect() end
@@ -915,7 +907,7 @@ local BoxShowItem = BoxTab:CreateToggle({
    end,
 })
 
--- Player Events
+
 P.PlayerAdded:Connect(function(newplr)
     if newplr ~= LP then
         if SkeletonSettings.Enabled then
@@ -952,7 +944,7 @@ P.PlayerRemoving:Connect(function(plr)
     end
 end)
 
--- Info Tab
+
 local InfoLabel = InfoTab:CreateLabel("ESP Interface by Qwiix21")
 
 local RepoButton = InfoTab:CreateButton({
